@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /*
  * Created on 2013-10-23
  *
@@ -9,8 +9,8 @@
  	function getData($a)
  	{
  		$i=0;
- 		$a=$a/8;  //×ª»»³ÉByte
- 		while($i<2)  //µ½ÁËG¾Í²»ÔÙ×ª»»ÁË
+ 		$a=$a/8;  //è½¬æ¢æˆByte
+ 		while($i<2)  //åˆ°äº†Gå°±ä¸å†è½¬æ¢äº†
  		{
  			$a=$a/1024;
  			$i++;
@@ -43,7 +43,7 @@
  		$result=array();
  		for($i=0;$i<intval(count($arr)/13);$i++)
  		{
- 			//½«Ã¿Ò»Ïî·Åµ½Êý×éÖÐ
+ 			//å°†æ¯ä¸€é¡¹æ”¾åˆ°æ•°ç»„ä¸­
  			$ip=trim(trim($arr[13*$i+1]),'""');
  			$mac=trim(trim($arr[13*$i+2]),'"');
  			$speed=number_format(trim($arr[13*$i+6])/8/1024,2)."KB/s";
