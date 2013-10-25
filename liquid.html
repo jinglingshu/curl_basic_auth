@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>实时流量获取</title>
+<script>
+	function handleData(json_string)
+	{
+		var oTable=document.getElementById('data');
+		var data=eval("("+json_string+")");
+		//alert(data.length);
+		var oTbody=oTable.tBodies[0];
+		oTable.removeChild(oTbody);
+		oTbody=document.createElement('tbody');
+		for(var i=0;i<data.length;i++)
+		{
+
+			var oRow=document.createElement('tr');
+			//alert(data[i]['IP']);
+			oRow.innerHTML="<td>"+data[i]['IP']+"</td><td>"+data[i]['MAC']+"</td><td>"+data[i]['Speed']+"</td><td>"+data[i]['Data']+"</td>";
+			oTbody.appendChild(oRow);
+		}
+		oTable.appendChild(oTbody);
+	}
+	window.onload=function()
+	{
+		setInterval(getData,1000);
+		getData();
+	}
+	function getData()
+	{
+		if(window.XMLHttpRequest)
+		{
+			var oAjax=new XMLHttpRequest();
+		}
+		else
+		{
+			var oAjax=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		oAjax.open("GET","http://localhost/study/curl_study.php",true);
+		//http://localhost/study/curl_study.php
+		oAjax.send();
+
+		oAjax.onreadystatechange=function()
+		{
+			if(oAjax.readyState==4 && oAjax.status==200)
+			{
+				handleData(oAjax.responseText);
+			}
+		}
+	};
+</script>
+</head>
+<body>
+	<div>
+		<table  id="data" border=1  width=500>
+			<thead>
+				<td>IP</td>
+				<td>MAC</td>
+				<td>网速</td>
+				<td>消耗总流量</td>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
